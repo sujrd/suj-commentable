@@ -6,11 +6,11 @@ module Suj
         desc "Adds suj commentable views and stylesheets to your application."
 
         def copy_views
-          directory "views/suj", "app/views"
+          directory "views/suj", "app/views/suj"
         end
         
         def copy_style
-          directory "assets/stylesheets/suj", "app/stylesheets"
+          directory "assets/stylesheets/suj", "app/assets/stylesheets"
         end
 
       end
