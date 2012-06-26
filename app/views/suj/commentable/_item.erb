@@ -1,7 +1,7 @@
 <li class='suj-commentable-item'>
-<% if comment.author -%>
-  <div class='suj-commentable-author'>Author: <%= comment.author.name -%></div>
+<% if ! comment.author.blank? -%>
+  <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
-<div class='suj-commentable-time'>Created At: <%= comment.created_at -%></div>
+<div class='suj-commentable-time'>Created <%= distance_of_time_in_words_to_now(comment.created_at) -%> ago</div>
 <div class='suj-commentable-text'><%= comment.text -%></div>
 </li>
