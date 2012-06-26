@@ -1,0 +1,27 @@
+.suj-commentable-section {
+  width: 100%;
+  border: 1px dashed red;
+  
+  .suj-commentable-form {
+  }
+
+  .suj-commentable-list {
+    list-style: none;
+    margin: auto -3em 1em 0;
+    padding: 0;
+    position: relative;
+    left: -3em;
+    overflow: hidden;
+    
+    .suj-commentable-item {
+      margin-top: 0.25em;
+      margin-left: 5em;
+      margin-bottom: 0.25em;
+      width: 100%;
+      border-top: 1px solid grey;
+    }
+    
+  }
+  
+  ol { margin-left: 1em; padding-left: 0 }
+}

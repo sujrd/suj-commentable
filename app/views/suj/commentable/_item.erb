@@ -1,0 +1,7 @@
+<li class='suj-commentable-item'>
+<% if comment.author -%>
+  <div class='suj-commentable-author'>Author: <%= comment.author.name -%></div>
+<% end -%>
+<div class='suj-commentable-time'>Created At: <%= comment.created_at -%></div>
+<div class='suj-commentable-text'><%= comment.text -%></div>
+</li>

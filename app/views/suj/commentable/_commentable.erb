@@ -1,0 +1,8 @@
+<div class='suj-commentable-section'>
+  <%= render :partial => "suj/commentable/form", :locals => { :commentable => commentable, :author => author } %>
+  <ol class='suj-commentable-list'>
+    <% commentable.comments.each do |comment| %>
+    <%= render :partial => 'suj/commentable/item', :locals => { :comment => comment } %>
+    <% end %>
+  </ol>
+</div>
