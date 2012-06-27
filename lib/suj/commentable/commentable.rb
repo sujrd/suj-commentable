@@ -2,16 +2,38 @@ require "active_support/time_with_zone"
 module Suj
   module Commentable
     extend ActiveSupport::Concern
+
+    module InstanceMethods
+      def ordered_comments
+        if self.class.comments_order == :desc
+          comments.by_date_desc
+        else
+          comments.by_date_asc
+        end
+      end
+    end
     
     module ClassMethods
+      
+      @@comments_order = :desc
+      
+      def comments_order
+        @@comments_order
+      end
+      
+      def comments_order=(order)
+        @@comments_order = order
+      end
+      
       def acts_as_commentable(options = {})
         raise "acts_as_commentable requires a comment_class parameter." if options[:comment_class].blank?
         comment_class = options[:comment_class]
-        
+        @@comments_order = options[:order] || :desc
+
         has_many comment_class.to_s.pluralize.downcase.to_sym, as: :commentable
         index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]
       end
-      
+
       def acts_as_commentable_author(options = {})
         raise "acts_as_commentable_author requires a comment_class parameter." if options[:comment_class].blank?
         comment_class = options[:comment_class]
@@ -28,6 +50,8 @@ module Suj
         belongs_to :author, polymorphic: true
         belongs_to :commentable, polymorphic: true
         validates_presence_of :text
+        scope :by_date_asc, asc(:created_at)
+        scope :by_date_desc, desc(:created_at)
       end
     end
   end

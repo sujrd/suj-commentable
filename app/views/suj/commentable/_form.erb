@@ -1,5 +1,5 @@
 <div class='suj-commentable-form'>
-<%= form_for([commentable, comment = commentable.comments.klass.new]) do |f| %>
+  <%= form_for([commentable, comment = commentable.comments.klass.new], :remote => true) do |f| %>
 <%=   hidden_field_tag :commentable_model, commentable.class.to_s %>
 <%=   hidden_field_tag :comment_model, comment.class.to_s %>
 <%    if ! author.blank? -%>
