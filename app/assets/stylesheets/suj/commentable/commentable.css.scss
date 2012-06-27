@@ -53,14 +53,11 @@
       font-style: italic;
       color: #808080;
       margin-bottom: 6px;
+      float: right;
     }
     
     .suj-commentable-author {
-      float: left;
-    }
-    
-    .suj-commentable-time {
-      float: right;
+      margin-left: 2px;
     }
     
     .suj-commentable-text {
