@@ -1,0 +1,10 @@
+
+<% if commentable.class.comments_order == :desc -%>
+  $('#suj-commentable-<%= commentable.id -%>').prepend("<%= escape_javascript render(:partial => 'suj/commentable/item.erb', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment }) -%>");
+<% else -%>
+  $('#suj-commentable-<%= commentable.id -%>').append("<%= escape_javascript render(:partial => 'suj/commentable/item.erb', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment }) -%>");
+<% end -%>
+
+$('.suj-commentable-form').find("textarea").each(function() {
+  $(this).val('');
+});

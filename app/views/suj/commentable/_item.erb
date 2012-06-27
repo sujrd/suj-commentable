@@ -1,4 +1,4 @@
-<li class='suj-commentable-item'>
+<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item'>
 <% if ! comment.author.blank? -%>
   <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
