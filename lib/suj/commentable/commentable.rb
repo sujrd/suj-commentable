@@ -39,12 +39,14 @@ module Suj
         comment_class = options[:comment_class]
         field (options[:name_field] || :name).to_sym, as: :name
         field (options[:avatar_field] || :avatar).to_sym, as: :avatar
+        field :rate_weight
         has_many comment_class.to_s.pluralize.downcase.to_sym, as: :author
         index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]
       end
       
       def acts_as_commentable_comment(options = {})
         include Mongoid::Tree
+        include Mongoid::Rateable
         field (options[:text_field] || :text).to_sym, as: :text
         field :created_at, type: ActiveSupport::TimeWithZone, default: ->{ Time.now }
         field :deleted_at, type: ActiveSupport::TimeWithZone

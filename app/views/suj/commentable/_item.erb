@@ -4,7 +4,12 @@
 <% end -%>
 <div class='suj-commentable-time'>Created <%= distance_of_time_in_words_to_now(comment.created_at) -%> ago</div>
 <div class='suj-commentable-text'><%= comment.text -%></div>
-<div class='suj-commnetable-controls'>reply</div>
+<div class='suj-commnetable-controls'>
+  <span>reply</span>
+  <span><%= like_url(comment, nil, comment.author) -%></span>
+  <span><%= unlike_url(comment, nil, comment.author) -%></span>
+  <span id='suj-comment-rating-<%= comment.id -%>'><%= comment.rating -%></span>
+</div>
 <%= render :partial => 'suj/commentable/reply_form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment, :author => author } %>
 </li>
 <ul id='suj-comment-children-list-<%= comment.id -%>' class='suj-commentable-list'>

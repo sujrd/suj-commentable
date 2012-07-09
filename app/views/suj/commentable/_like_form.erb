@@ -1,0 +1,10 @@
+<div class='suj-commentable-form'>
+<%= form_tag({:controller => :comments, :action => :rate, :id => comment.id}, { :method => :put, :remote => true}) do |f| %>
+<%    if !author.blank? -%>
+<%=     hidden_field_tag(:author_model, author.class.to_s) %>
+<%=     hidden_field_tag(:author_id, author.id) %>
+<%    end  -%>
+<%=   hidden_field_tag(:rate, weight) %>
+<%=   submit_tag(body) %>
+<%  end %>
+</div>

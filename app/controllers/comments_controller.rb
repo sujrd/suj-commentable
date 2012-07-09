@@ -18,4 +18,18 @@ class CommentsController < ApplicationController
       }
     end
   end
+  
+  def rate
+    @comment = Comment.find(params[:id])
+    @author = params[:author_model].constantize.find(params["#{params[:author_model].downcase}_id"])
+    @comment.rate_and_save (params[:rate].to_i || 1), @author
+    respond_to do |format|
+      format.html {
+        redirect_to :back 
+      }
+      format.js {
+        render :partial => 'suj/commentable/rate', :locals => { :comment => @comment }
+      }
+    end
+  end
 end
