@@ -1,3 +1,4 @@
+require "mongoid/tree"
 require "active_support/time_with_zone"
 module Suj
   module Commentable
