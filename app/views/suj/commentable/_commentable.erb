@@ -1,8 +1,8 @@
 <div class='suj-commentable-section'>
   <%= render :partial => "suj/commentable/form", :formats => [:html], :locals => { :commentable => commentable, :author => author } %>
   <ol id='suj-commentable-<%= commentable.id -%>' class='suj-commentable-list'>
-    <% commentable.ordered_comments.each do |comment| %>
-    <%= render :partial => 'suj/commentable/item', :formats => [:html], :locals => { :comment => comment } %>
+    <% commentable.ordered_comments.roots.each do |comment| %>
+      <%= render :partial => 'suj/commentable/item', :formats => [:html], :locals => { :comment => comment, :commentable => commentable, :author => author } %>
     <% end %>
   </ol>
 </div>

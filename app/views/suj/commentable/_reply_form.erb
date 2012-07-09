@@ -6,7 +6,10 @@
 <%=     f.hidden_field :author_id, :value => author.id %>
 <%=     f.hidden_field :author_type, :value => author.class.to_s %>
 <%    end -%>
+<%    if ! parent.blank? -%>
+<%=     f.hidden_field :parent_id, :value => parent.id %>
+<%    end -%>
 <%=   f.text_area :text %>
-<%=   f.submit "Add Comment" %>
+<%=   f.submit "Reply" %>
 <% end %>
 </div>
