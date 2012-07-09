@@ -20,11 +20,11 @@ Gem::Specification.new do |s|
   s.add_dependency "mongoid"
   s.add_dependency "bson_ext"
   s.add_dependency "kaminari"
-  s.add_dependency "mongoid-ancestry"
+  s.add_dependency "mongoid-tree"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mongoid"
   s.add_development_dependency "bson_ext"
   s.add_development_dependency "kaminari"
-  s.add_development_dependency "mongoid-ancestry"
+  s.add_development_dependency "mongoid-tree"
 end

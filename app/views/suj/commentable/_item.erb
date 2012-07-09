@@ -1,7 +1,14 @@
-<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item'>
+<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item' style='margin-left: <%= comment.depth.to_i * 1.3 -%>em'>
 <% if ! comment.author.blank? -%>
   <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
 <div class='suj-commentable-time'>Created <%= distance_of_time_in_words_to_now(comment.created_at) -%> ago</div>
 <div class='suj-commentable-text'><%= comment.text -%></div>
+<div class='suj-commnetable-controls'>reply</div>
+<%= render :partial => 'suj/commentable/reply_form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment, :author => author } %>
 </li>
+<ul id='suj-comment-children-list-<%= comment.id -%>' class='suj-commentable-list'>
+<% comment.children.order(:created_at => :desc).each do |child| -%>
+  <%=  render :partial => 'suj/commentable/item', :formats => [:html], :locals => { :comment => child, :parent => comment, :commentable => commentable, :author => author } %>
+<% end -%>
+</ul>

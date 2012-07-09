@@ -44,6 +44,7 @@ module Suj
       end
       
       def acts_as_commentable_comment(options = {})
+        include Mongoid::Tree
         field (options[:text_field] || :text).to_sym, as: :text
         field :created_at, type: ActiveSupport::TimeWithZone, default: ->{ Time.now }
         field :deleted_at, type: ActiveSupport::TimeWithZone
