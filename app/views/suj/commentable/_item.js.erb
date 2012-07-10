@@ -10,6 +10,6 @@ var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item.
   $('#suj-comment-children-list-<%= @comment.parent.id -%>').prepend(comment.fadeIn(500));
 <% end -%>
 
-$('.suj-commentable-form').find("textarea").each(function() {
+$('.suj-commentable-section form').find("textarea").each(function() {
   $(this).val('');
 });

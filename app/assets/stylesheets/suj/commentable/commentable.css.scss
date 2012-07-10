@@ -26,11 +26,39 @@
     &:hover {
       background: #909090;
       color: white;
-      //border-color: #A0A0A0;
     }
   }
   
   .suj-commentable-form {
+    
+  }
+  
+  .suj-commentable-reply-form {
+    display: none;
+    clear: both;
+    border-top: 1px dotted #AAA;
+    padding-top: 5px;
+    margin-top: 5px;
+  }
+  
+  .suj-commentable-controls {
+    margin-top: 5px;
+    clear: both;
+    width: auto;
+    overflow: auto;
+    
+    span {
+      float: right;
+    }
+    
+    span.suj-commentable-reply-show {
+      float: left;
+    }
+    
+    input {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 
   .suj-commentable-list {
