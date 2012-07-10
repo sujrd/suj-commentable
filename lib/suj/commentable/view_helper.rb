@@ -13,6 +13,10 @@ module Suj
         rate_url(comment, weight, author, body, -1)
       end
       
+      def reply_toggle
+        button_to "reply", "#", :class => 'suj-commentable-reply-toggle'
+      end
+      
       def rate_url(comment, weight = 1, author = nil, body = "rate", mult = 1)
         w = if author.blank?
           weight || 1
