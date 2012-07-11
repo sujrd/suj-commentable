@@ -1,4 +1,4 @@
-<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item' style='margin-left: <%= comment.depth.to_i * 1.3 -%>em'>
+<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item'>
 <% if ! comment.author.blank? -%>
   <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
