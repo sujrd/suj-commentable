@@ -1,4 +1,4 @@
-<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item' style='margin-left: <%= comment.depth.to_i * 1.3 -%>em'>
+<li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item'>
 <% if ! comment.author.blank? -%>
   <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
@@ -6,10 +6,10 @@
 <div class='suj-commentable-text'><%= comment.text -%></div>
 <% if (comment.depth + 1) < commentable.class.max_depth -%>
 <div class='suj-commentable-controls'>
-  <span class='suj-commentable-reply-show'><%= reply_toggle %></span>
+  <span class='suj-commentable-reply-show'><%= reply_toggle "reply" %></span>
   <span><%= unlike_url(comment, "Unlike") -%></span>
   <span><%= like_url(comment, "Like") -%></span>
-  <span id='suj-comment-rating-<%= comment.id -%>'><%= comment.rating -%></span>
+  <span id='suj-comment-rating-<%= comment.id -%>' class='suj-commentable-rating'>Overall comment score: <label class='suj-commentable-score'><%= comment.rates %></label></span>
 </div>
 <%= render :partial => 'suj/commentable/form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment } %>
 <% end -%>

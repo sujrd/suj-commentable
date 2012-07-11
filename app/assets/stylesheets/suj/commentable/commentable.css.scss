@@ -33,7 +33,11 @@
     
   }
   
-  .suj-commentable-reply-form {
+  ol.suj-commentable-list ul.suj-commentable-list {
+    margin-left: 1.3em;
+  }
+  
+  .suj-commentable-item .suj-commentable-form {
     display: none;
     clear: both;
     border-top: 1px dotted #AAA;
@@ -48,6 +52,7 @@
     overflow: auto;
     
     span {
+      margin: 0px 2px;
       float: right;
     }
     
@@ -56,6 +61,7 @@
     }
     
     input {
+      font-size: 85%;
       padding-top: 0;
       padding-bottom: 0;
     }
@@ -76,13 +82,16 @@
       padding: 8px;
     }
     
-    .suj-commentable-author, .suj-commentable-time {
+    .suj-commentable-author, .suj-commentable-time, .suj-commentable-rating {
       font-size: 9px;
       font-style: italic;
       color: #808080;
+    }
+    
+    .suj-commentable-author, .suj-commentable-time {
       margin-bottom: 6px;
       float: right;
-    }
+    } 
     
     .suj-commentable-author {
       margin-left: 2px;

@@ -13,8 +13,8 @@ module Suj
         rate_url(comment, body, "unlike")
       end
       
-      def reply_toggle
-        button_to "reply", "#", :class => 'suj-commentable-reply-toggle'
+      def reply_toggle( body )
+        button_to body, "#", :class => 'suj-commentable-reply-toggle'
       end
       
       def rate_url(comment, body = "like", action = "like")
