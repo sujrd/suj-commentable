@@ -15,7 +15,8 @@ module Suj
     end
     
     module ClassMethods
-      
+ 
+      @@max_depth = -1
       @@comments_order = :desc
       
       def comments_order
@@ -26,10 +27,19 @@ module Suj
         @@comments_order = order
       end
       
+      def max_depth
+        @@max_depth
+      end
+      
+      def max_depth=(val)
+        @@max_depth = val
+      end
+      
       def acts_as_commentable(options = {})
         #raise "acts_as_commentable requires a comment_class parameter." if options[:comment_class].blank?
         #comment_class = options[:comment_class]
         @@comments_order = options[:order] || :desc
+        @@max_depth = options[:max_depth] || -1
 
         #has_many comment_class.to_s.pluralize.downcase.to_sym, as: :commentable
         #index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]

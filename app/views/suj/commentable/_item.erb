@@ -4,6 +4,7 @@
 <% end -%>
 <div class='suj-commentable-time'>Created <%= distance_of_time_in_words_to_now(comment.created_at) -%> ago</div>
 <div class='suj-commentable-text'><%= comment.text -%></div>
+<% if (comment.depth + 1) < commentable.class.max_depth -%>
 <div class='suj-commentable-controls'>
   <span class='suj-commentable-reply-show'><%= reply_toggle %></span>
   <span><%= unlike_url(comment, "Unlike") -%></span>
@@ -11,6 +12,7 @@
   <span id='suj-comment-rating-<%= comment.id -%>'><%= comment.rating -%></span>
 </div>
 <%= render :partial => 'suj/commentable/form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment } %>
+<% end -%>
 </li>
 <ul id='suj-comment-children-list-<%= comment.id -%>' class='suj-commentable-list'>
 <% comment.children.order(:created_at => :desc).each do |child| -%>
