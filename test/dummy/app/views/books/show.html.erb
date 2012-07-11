@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= comments_for(@book, Author.first) -%>
+<%= comments_for(@book) -%>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
