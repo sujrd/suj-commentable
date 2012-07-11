@@ -1,12 +1,14 @@
 <div class='suj-commentable-form'>
-<%= form_for([commentable, comment = commentable.comments.klass.new], :remote => true) do |f| %>
+<%= form_tag("/#{commentable.class.to_s.pluralize.downcase}/#{commentable.id}/comments", :remote => true) do %>
 <%=   hidden_field_tag :commentable_model, commentable.class.to_s %>
-<%=   hidden_field_tag :comment_model, comment.class.to_s %>
-<%    if ! author.blank? -%>
-<%=     f.hidden_field :author_id, :value => author.id %>
-<%=     f.hidden_field :author_type, :value => author.class.to_s %>
+<%    if ! parent.blank? -%>
+<%=     hidden_field_tag "comment[parent_id]", parent.id.to_s %>
 <%    end -%>
-<%=   f.text_area :text %>
-<%=   f.submit "Add Comment" %>
+<%=   text_area_tag "comment[text]" %>
+<%    if ! parent.blank? -%>
+<%=     submit_tag "Reply" %>
+<%    else -%>
+<%=     submit_tag "Add Comment" %>
+<%    end  -%>
 <% end %>
 </div>

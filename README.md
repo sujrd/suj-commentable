@@ -6,39 +6,41 @@ your Rails application.
 
 ## Usage
 
-### Configuring your models
+### Run the gem generator
 
-You must first create a Comment class for your application. It does not
-necesarily needs to be called Comment but for this example we will use this
-class:
+rails generator suj:commentable:install
 
-```bash
-rails g model Comment
-```
+This command will generate some views and a controller in your application. You
+can use these files to customize the behaviour and look of the gem.
 
-Once the model is created you must include the commentable plugin comment
-module in it:
+### Configure the controller
+
+In the controller you need to override the commentable_user method to return
+the currently logged in user. This user is used by the controller to create and
+rate comments.
+
 
 ```ruby
-class Comment
-  include Mongoid::Document
-  include Suj::Commentable::Comment
+def commentable_user
+  current_user
 end
 ```
 
-Next include the commentable module to the class you want to comment on:
+### Configuring your models
+
+You need to include the commentable module to the class you want to comment on
+(e.g. Book):
 
 ```ruby
 class Book
   include Mongoid::Document
   include Suj::Commentable
 end
+This module adds a has_many association with an internal
+Suj::Commentable::Comments class.
 
-this module will add a has_many relationship with the Comment class.
-
-If you want each comment to have an author then include the author module in
-the class that is to be used as author. Usually, if you use devise, this class
-is User or Admin:
+Next you must add the Commentable::Author module to one of your clases (e.g.
+User or Author):
 
 ```ruby
 class User
@@ -46,10 +48,8 @@ class User
   include Suj::Commentable::Author
 end
 ```
-First you must select three classes in your application to become a commentable
-class, a comment class and an author class. For example if you have a Book
-management application you usually have a Book class, a User class and a
-Comment class.
+
+Suj::Commentable::Comments and will be used to assign ratings to each comment.
 
 ### Testing the models
 
@@ -59,48 +59,36 @@ class via the comments association:
 ```bash
 @book = Book.first
 @book.comments
-@book.comments.create(:text => "New Comment")
-@book.comments.create(:text => "Other comment", :author => User.first)
+@book.comments.create(:text => "New Comment", :author => User.first)
 ```
+
+Comments are threaded so they can have parents and childrens:
+
+@book.comments.create(:text => "Threaded Comment", :author => User.first,
+:parent => Comment.first)
+
+@comment.children
 
 ### Configuring the routes
 
-The comments class is only valid under the commentable scope. To this end the
-comments route must be nested inside the commentable (e.g. Book) class. In your
-config/routes.rb file the comments route should look like:
+In your routes.rb config file add this command:
 
 ```ruby
-resources :books do
-  resources :comments
-end
+commentable_for :books
 ```
 
-Adapt the names (:books and :comments) to the classes you use in your
-application. If your commentable class is Video and your comments class is
-Comentario then change the routes accordingly.
+This will create routes needed to create/destroy/like/dislike comments. Use
+rake routes to check the generated routes.
 
-### Configuring the views
+### Display comments in your view
 
 This plugin includes some partials and a helper used to render the comments.
 Also a default stylesheet is provided. To display the comments in you own views
 simply use the comments_for helper method:
 
 ```ruby
-<%= comments_for(@book, @user) %>
+<%= comments_for(@book) %>
 ```
 
 This will render a list with the current comments and a form to add new
-comments. The @book object should be the commentable and the @user the author
-object for new comments.
-
-### Customizing the view
-
-If you want to change the default view you can use the following generator:
-
-```bash
-rails g suj:commentable:views
-```
-
-This generator will create a stylesheet and a views folder with some partials in your application
-that can be used to override the default view.
-
+comments.
