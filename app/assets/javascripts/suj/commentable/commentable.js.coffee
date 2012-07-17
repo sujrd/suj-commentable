@@ -3,7 +3,7 @@ $(document).on('click', '.suj-commentable-reply-toggle', (evt, data, status, xhr
   return false
 )
 
-$(document).on('ajax:success', '.suj-commentable-item .suj-commentable-reply-form', (evt, data, status, xhr) ->
+$(document).on('ajax:success', '.suj-commentable-item .suj-commentable-form', (evt, data, status, xhr) ->
   $(this).toggle()
   return false
 )
