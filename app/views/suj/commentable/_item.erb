@@ -1,5 +1,6 @@
 <li id='suj-comment-<%= comment.id -%>' class='suj-commentable-item'>
 <% if ! comment.author.blank? -%>
+  <div class='suj-commentable-avatar'><%= avatar_tag(comment.author.email) -%></div>
   <div class='suj-commentable-author'>by <%= comment.author.name -%></div>
 <% end -%>
 <div class='suj-commentable-time'>Created <%= distance_of_time_in_words_to_now(comment.created_at) -%> ago</div>

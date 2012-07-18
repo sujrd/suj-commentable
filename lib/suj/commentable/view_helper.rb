@@ -20,6 +20,18 @@ module Suj
       def rate_url(comment, body = "like", action = "like")
         render :partial => "suj/commentable/like_form", :formats => [:html], :locals => { :body => body, :comment => comment, :action => action }
       end
+      
+      require "digest/md5"
+      
+      def avatar_tag(email, options = {})
+        size = options[:size] || 20
+        grav_url = 'http://www.gravatar.com/avatar.php?'
+        grav_url << "gravatar_id=#{Digest::MD5.new.update(email)}"
+        grav_url << "&rating=#{options[:rating]}" if options[:rating]
+        grav_url << "&size=#{size}"
+        grav_url << "&default=#{options[:default]}" if options[:default]
+        image_tag(grav_url, { :size => "#{size}x#{size}", :alt => "avatar" })
+      end
     end
   end
 end
