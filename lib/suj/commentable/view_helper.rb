@@ -21,6 +21,13 @@ module Suj
         render :partial => "suj/commentable/like_form", :formats => [:html], :locals => { :body => body, :comment => comment, :action => action }
       end
       
+      def show_more_tag(comments, commentable, page = 1)
+        return if comments.last_page?
+        content_tag(:div, :id => "show_more") do
+          link_to("Show more...", "/#{commentable.class.to_s.pluralize.downcase}/#{commentable.id}/comments?commentable_model=#{commentable.class.to_s}&page=#{(page || 1).to_i + 1}", :remote => true)
+        end
+      end
+      
       require "digest/md5"
       
       def avatar_tag(email, options = {})

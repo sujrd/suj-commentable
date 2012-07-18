@@ -25,9 +25,7 @@ module Suj
       end
       
       def update_root
-        if ! self.root?
-          self.root.update(:replied_to => Time.now)
-        end
+        self.root.update_attributes(:replied_at => Time.now)
       end
     end
   end

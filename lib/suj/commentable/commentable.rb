@@ -40,6 +40,7 @@ module Suj
         #comment_class = options[:comment_class]
         @@comments_order = options[:order] || :desc
         @@max_depth = options[:max_depth] || -1
+        Suj::Commentable::Comment.paginates_per(options[:paginates_per] || 10)
 
         #has_many comment_class.to_s.pluralize.downcase.to_sym, as: :commentable
         #index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]

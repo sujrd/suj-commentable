@@ -1,0 +1,6 @@
+<% comments.each do |c| -%>
+  var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item', :formats => [:html], :locals => { :commentable => commentable, :comment => c, :author => c.author, :parent => c.parent }) -%>")
+
+  $("#suj-commentable-<%= commentable.id -%>").append(comment.fadeIn(50));
+<% end -%>
+$("#show_more").html("<%= escape_javascript show_more_tag(comments, commentable, params[:page]) -%>");

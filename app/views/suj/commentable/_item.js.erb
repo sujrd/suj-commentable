@@ -1,4 +1,4 @@
-var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item.erb', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment, :author => @comment.author, :parent => @comment.parent }) -%>")
+var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment, :author => @comment.author, :parent => @comment.parent }) -%>")
 
 <% if @comment.parent.blank? -%>
   <% if commentable.class.comments_order == :desc -%>
