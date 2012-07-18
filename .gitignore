@@ -1,5 +1,7 @@
 .bundle/
 log/*.log
+*~
+.sass-cache
 pkg/
 test/dummy/db/*.sqlite3
 test/dummy/log/*.log
