@@ -35,7 +35,7 @@ You need to include the commentable module to the class you want to comment on
 class Book
   include Mongoid::Document
   include Suj::Commentable
-  acts_as_commentable :order => :desc, :max_depth = 10
+  acts_as_commentable :order => :desc, :max_depth = 10, :paginates_per = 10
 end
 
 This module adds a has_many association with an internal
@@ -43,6 +43,11 @@ Suj::Commentable::Comments class. The order parameter can be to show the
 comments ordered in ascending or descending order and the max_depth can be used
 to limit replies depth to certain value. If max_depth is set to -1 then
 unlimited reply depth is allowed.
+
+By default when displaying the list of comments this gem will only show the
+first ten comments and a "show more" link is added to request more comments in
+goups of 10. To change this default value of ten you may use the :paginates_per
+option.
 
 Next you must add the Commentable::Author module to one of your clases (e.g.
 User or Author):

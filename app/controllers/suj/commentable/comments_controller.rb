@@ -1,6 +1,20 @@
 module Suj
   module Commentable
     class CommentsController < ApplicationController
+      
+      def index
+        @parent = params[:commentable_model].constantize.find(params["#{params[:commentable_model].downcase}_id"])
+        @comments = @parent.ordered_comments.roots.page(params[:page])
+        respond_to do |format|
+          format.html {
+            redirect_to @parent
+          }
+          format.js {
+            render :partial => 'suj/commentable/index', :formats => [:js], :locals => { :comments => @comments, :commentable => @parent }
+          }
+        end
+      end
+      
       def create
         @parent = params[:commentable_model].constantize.find(params["#{params[:commentable_model].downcase}_id"])
         @comment = @parent.comments.new(params[:comment].merge(:author => commentable_user))

@@ -7,7 +7,7 @@ module Suj
           put 'unlike', :on => :member
         end
         resources model do
-          resources :comments, :only => [:create, :destroy]
+          resources :comments, :only => [:index, :create, :destroy]
         end
       end
     end
