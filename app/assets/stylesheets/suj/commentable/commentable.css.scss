@@ -88,13 +88,17 @@
       color: #808080;
     }
     
-    .suj-commentable-author, .suj-commentable-time {
+    .suj-commentable-author, .suj-commentable-time, .suj-commentable-avatar {
       margin-bottom: 6px;
       float: right;
     } 
     
     .suj-commentable-author {
       margin-left: 2px;
+    }
+    
+    .suj-commentable-avatar {
+      margin-left: 3px;
     }
     
     .suj-commentable-text {
