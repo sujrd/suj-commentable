@@ -37,6 +37,7 @@ class Book
   include Suj::Commentable
   acts_as_commentable :order => :desc, :max_depth = 10, :paginates_per = 10
 end
+```
 
 This module adds a has_many association with an internal
 Suj::Commentable::Comments class. The order parameter can be to show the
