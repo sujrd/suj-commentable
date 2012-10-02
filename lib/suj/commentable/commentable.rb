@@ -4,13 +4,11 @@ module Suj
   module Commentable
     extend ActiveSupport::Concern
 
-    module InstanceMethods
-      def ordered_comments
-        if self.class.comments_order == :desc
-          comments.by_date_desc
-        else
-          comments.by_date_asc
-        end
+    def ordered_comments
+      if self.class.comments_order == :desc
+        comments.by_date_desc
+      else
+        comments.by_date_asc
       end
     end
     
