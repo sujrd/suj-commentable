@@ -1,6 +1,8 @@
 Dummy::Application.routes.draw do
-  
-  commentable_for :books
+ 
+  scope "(/:locale)", :locale => /en|es|jp/ do
+    commentable_for :books
+  end
   #resources :books do
   #  resources :comments
   #end

@@ -12,6 +12,7 @@ module Suj
       belongs_to :commentable, polymorphic: true
       validates_presence_of :text
       after_create :update_root
+      before_destroy :delete_descendants
       validate :validate_max_depth
       scope :by_date_asc, asc(:replied_at)
       scope :by_date_desc, desc(:replied_at)

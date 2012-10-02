@@ -42,7 +42,7 @@ module Suj
 
         #has_many comment_class.to_s.pluralize.downcase.to_sym, as: :commentable
         #index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]
-        has_many :comments, class_name: "Suj::Commentable::Comment", as: :commentable
+        has_many :comments, class_name: "Suj::Commentable::Comment", as: :commentable, dependent: (options[:dependent] || :destroy)
         index [[:comments, Mongo::ASCENDING]]
       end
 

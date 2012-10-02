@@ -1,0 +1,10 @@
+jp:
+  commentable:
+    add_comment: "コメントー追加"
+    reply: "返事"
+    like: "好き"
+    unlike: "嫌い"
+    info: "Creado hace %{time} por %{user}"
+    score: "Puntaje total del comentario: %{score}"
+    show_more: "もっと見る"
+    empty: "Sé la primera persona en comentar esta respuesta."
