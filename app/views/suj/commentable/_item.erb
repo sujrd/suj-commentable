@@ -3,16 +3,35 @@
  <div class='suj-commentable-avatar'><%= avatar_tag(comment.author.email) -%></div>
 <% end -%>
 <div class='suj-commentable-time'><%= t("commentable.info", :time => distance_of_time_in_words_to_now(comment.created_at), :user => (comment.author) ? comment.author.name : "" ) -%></div>
-<div class='suj-commentable-text'><%= comment.text -%></div>
-<% if (comment.depth + 1) < commentable.class.max_depth -%>
+<% if comment.enabled? -%>
+  <div class='suj-commentable-text'><%= comment.text -%></div>
+<% else -%>
+  <div class='suj-commentable-text'><%= t('commentable.censored') -%></div>
+<% end -%>
 <div class='suj-commentable-controls'>
- <span class='suj-commentable-reply-show login_required'><%= reply_toggle t("commentable.reply") %></span>
+ <% if (comment.depth + 1) < commentable.class.max_depth -%>
+   <span class='suj-commentable-reply-show login_required'><%= reply_toggle t("commentable.reply") %></span>
+ <% end -%>
  <span class="login_required"><%= unlike_url(comment, t("commentable.unlike")) -%></span>
  <span class="login_required"><%= like_url(comment, t("commentable.like")) -%></span>
- <span id='suj-comment-rating-<%= comment.id -%>' class='suj-commentable-rating'><%= t("commentable.score", :score => "<label class='suj-commentable-score'>#{comment.rates}</label>").html_safe -%></label></span>
+ <!--
+ <% if comment.closed? -%>
+   <span id="suj-commentable-open-form" class="login_required"><%= open_url(comment, t("commentable.open_thread")) -%></span>
+ <% else -%>
+   <span id="suj-commentable-open-form" class="login_required"><%= close_url(comment, t("commentable.close_thread")) -%></span>
+ <% end -%>
+ -->
+ <% if comment.enabled? -%>
+   <span id="suj-commentable-hide-form" class="login_required"><%= hide_url(comment, t("commentable.hide")) -%></span>
+ <% else -%>
+   <span id="suj-commentable-unhide-form" class="login_required"><%= unhide_url(comment, t("commentable.unhide")) -%></span>
+   <span id="suj-commentable-hide-form" class="login_required"><%= destroy_url(comment, t("commentable.destroy")) -%></span>
+ <% end -%>
+ <% if (comment.depth + 1) < commentable.class.max_depth -%>
+   <span id='suj-comment-rating-<%= comment.id -%>' class='suj-commentable-rating'><%= t("commentable.score", :score => "<label class='suj-commentable-score'>#{comment.rates}</label>").html_safe -%></label></span>
+ <% end -%>
 </div>
 <%= render :partial => 'suj/commentable/form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment } %>
-<% end -%>
 </li>
 <ul id='suj-comment-children-list-<%= comment.id -%>' class='suj-commentable-list'>
 <% comment.children.order(:created_at => :desc).each do |child| -%>
