@@ -1,5 +1,5 @@
 <div class='suj-commentable-like-form'>
-<%= form_tag("/comments/#{comment.id}/#{action}", { :method => :put, :remote => true}) do |f| %>
+<%= form_tag({ :controller => :comments, :action => action, :id => comment.id }, {:method => :put, :remote => true}) do |f| %>
 <%=   submit_tag(body) %>
 <%  end %>
 </div>

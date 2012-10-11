@@ -4,13 +4,11 @@ module Suj
   module Commentable
     extend ActiveSupport::Concern
 
-    module InstanceMethods
-      def ordered_comments
-        if self.class.comments_order == :desc
-          comments.by_date_desc
-        else
-          comments.by_date_asc
-        end
+    def ordered_comments
+      if self.class.comments_order == :desc
+        comments.by_date_desc
+      else
+        comments.by_date_asc
       end
     end
     
@@ -44,7 +42,7 @@ module Suj
 
         #has_many comment_class.to_s.pluralize.downcase.to_sym, as: :commentable
         #index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]
-        has_many :comments, class_name: "Suj::Commentable::Comment", as: :commentable
+        has_many :comments, class_name: "Suj::Commentable::Comment", as: :commentable, dependent: (options[:dependent] || :destroy)
         index [[:comments, Mongo::ASCENDING]]
       end
 

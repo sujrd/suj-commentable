@@ -8,7 +8,7 @@ your Rails application.
 
 ### Run the gem generator
 
-rails generator suj:commentable:install
+rails generate suj:commentable:install
 
 This command will generate some views and a controller in your application. You
 can use these files to customize the behaviour and look of the gem.
@@ -35,22 +35,25 @@ You need to include the commentable module to the class you want to comment on
 class Book
   include Mongoid::Document
   include Suj::Commentable
-  acts_as_commentable :order => :desc, :max_depth = 10, :paginates_per = 10
+  acts_as_commentable :order => :desc, :max_depth => 10, :paginates_per => 10, :dependent => :destroy
 end
 ```
 
 This module adds a has_many association with an internal
-Suj::Commentable::Comments class. The order parameter can be to show the
-comments ordered in ascending or descending order and the max_depth can be used
-to limit replies depth to certain value. If max_depth is set to -1 then
-unlimited reply depth is allowed.
+Suj::Commentable::Comments class. 
 
-By default when displaying the list of comments this gem will only show the
-first ten comments and a "show more" link is added to request more comments in
-goups of 10. To change this default value of ten you may use the :paginates_per
-option.
+#### Options
 
-Next you must add the Commentable::Author module to one of your clases (e.g.
+ - order: The order parameter can be to show the comments ordered in ascending or descending order.
+ - max_depth: Limit the number of replies to each comment. If max_depth is set to -1 then is unlimited.
+ - paginates_per: Each request for comments will return at least :paginates_per items.
+ - dependent: Can be any of:
+   - :delete -> Delete the associated comments. Does not invoke callbacks on comments.
+   - :destroy -> Destroy the associated comments. Invokes callbacks on comments.
+   - :nullify -> Leave the comments but with null commentable.
+   - :restrict -> Raise an error is it has comments.
+
+Next you must add the Commentable::Author module to one of your classes (e.g.
 User or Author):
 
 ```ruby
@@ -61,7 +64,6 @@ class User
 end
 ```
 
-Suj::Commentable::Comments and will be used to assign ratings to each comment.
 The name_field is used by the views to obtain the author name and the
 avatar_field is used to obtain the avatar (image) url of the author. Both of
 these fields if available will be rendered on each comment.

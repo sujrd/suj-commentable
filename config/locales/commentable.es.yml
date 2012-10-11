@@ -1,0 +1,17 @@
+es:
+  commentable:
+    add_comment: "Enviar Comentario"
+    reply: "responder"
+    like: "me gusta"
+    unlike: "no me gusta"
+    hide: "esconder"
+    unhide: "mostrar"
+    destroy: "eliminar"
+    info: "Creado hace %{time} por %{user}"
+    score: "Puntaje total del comentario: %{score}"
+    show_more: "Mostrar más..."
+    empty: "Sé la primera persona en comentar esta respuesta."
+    censored: "Este comentario esta censurado por el uso de lenguaje soez." 
+    sure: "Esta seguro?" 
+    open_thread: "abrir thread"
+    close_thread: "cerrar thread"

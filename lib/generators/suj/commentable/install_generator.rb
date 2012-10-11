@@ -20,6 +20,10 @@ module Suj
         def copy_script
           directory "assets/javascripts", "app/assets/javascripts"
         end
+
+        def copy_translations
+          directory "../config/locales", "config/locales"
+        end
       end
     end
   end

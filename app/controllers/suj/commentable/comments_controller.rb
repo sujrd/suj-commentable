@@ -35,10 +35,56 @@ module Suj
         end
       end
 
+      def hide
+        destroy
+      end
+
+      def unhide
+        @comment = Suj::Commentable::Comment.find(params[:id])
+        @comment.enable!
+        respond_to do |format|
+          format.html { redirect_to :back }
+          format.js { render :partial => 'suj/commentable/destroy', :locals => { :comment => @comment } }
+        end
+      end
+
+      def destroy
+        @comment = Suj::Commentable::Comment.find(params[:id])
+        @comment.destroy
+        respond_to do |format|
+          format.html {
+            redirect_to :back
+          }
+          format.js {
+            render :partial => 'suj/commentable/destroy', :locals => { :comment => @comment }
+          }
+        end
+      end
+
+      def open
+        @comment = Suj::Commentable::Comment.find(params[:id])
+        @comment.open
+        respond_to do |format|
+          format.html { redirect_to :back }
+          format.js { render :partial => 'suj/commentable/open', :locals => { :comment => @comment } }
+        end
+      end
+
+      def close
+        @comment = Suj::Commentable::Comment.find(params[:id])
+        @comment.close
+        respond_to do |format|
+          format.html { redirect_to :back }
+          format.js { render :partial => 'suj/commentable/open', :locals => { :comment => @comment } }
+        end
+      end
+
       def like
         @comment = Suj::Commentable::Comment.find(params[:id])
-        @weight = commentable_user.rate_weight || 1
-        @comment.rate_and_save @weight, commentable_user
+        if commentable_user
+          @weight = commentable_user.rate_weight || 1
+          @comment.rate_and_save @weight, commentable_user
+        end
         respond_to do |format|
           format.html {
             redirect_to :back 
@@ -51,8 +97,10 @@ module Suj
 
       def unlike
         @comment = Comment.find(params[:id])
-        @weight = (commentable_user.rate_weight || 1) * -1
-        @comment.rate_and_save @weight, commentable_user
+        if(commentable_user)
+          @weight = (commentable_user.rate_weight || 1) * -1
+          @comment.rate_and_save @weight, commentable_user
+        end
         respond_to do |format|
           format.html {
             redirect_to :back 
