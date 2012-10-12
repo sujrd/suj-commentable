@@ -1,7 +1,7 @@
 module Suj
   module Commentable
     class CommentsController < ApplicationController
-      
+
       def index
         @parent = params[:commentable_model].constantize.find(params["#{params[:commentable_model].downcase}_id"])
         @comments = @parent.ordered_comments.roots.page(params[:page])
@@ -14,7 +14,7 @@ module Suj
           }
         end
       end
-      
+
       def create
         @parent = params[:commentable_model].constantize.find(params["#{params[:commentable_model].downcase}_id"])
         @comment = @parent.comments.new(params[:comment].merge(:author => commentable_user))
@@ -40,7 +40,19 @@ module Suj
       end
 
       def unhide
+
         @comment = Suj::Commentable::Comment.find(params[:id])
+
+        if ! commentable_user
+          render :text => "Need to login to unhid or delete comments", :status => :unauthorized
+          return
+        end
+
+        if @comment.enabled? and ! commentable_user.can_hid_comment?(@comment)
+          render :text => "You are not authorized to unhid this comment.", :status => :unauthorized
+          return
+        end
+
         @comment.enable!
         respond_to do |format|
           format.html { redirect_to :back }
@@ -50,6 +62,22 @@ module Suj
 
       def destroy
         @comment = Suj::Commentable::Comment.find(params[:id])
+
+        if ! commentable_user
+          render :text => "Need to login to hid or delete comments", :status => :unauthorized
+          return
+        end
+
+        if @comment.enabled? and ! commentable_user.can_hid_comment?(@comment)
+          render :text => "You are not authorized to hid this comment.", :status => :unauthorized
+          return
+        end
+
+        if !@comment.enabled? and ! commentable_user.can_delete_comment?(@comment)
+          render :text => "You are not authorized to delete this comment.", :status => :unauthorized
+          return
+        end
+
         @comment.destroy
         respond_to do |format|
           format.html {
@@ -110,6 +138,7 @@ module Suj
           }
         end
       end
+
     end
   end
 end

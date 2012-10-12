@@ -1,15 +1,12 @@
+<% commentable_user = controller.send(:commentable_user) -%>
 <% if comment.destroyed? -%>
   $("#suj-comment-<%= comment.id -%>").fadeOut(300, function() { $(this).remove(); });
   $("#suj-comment-children-list-<%= comment.id -%>").fadeOut(200, function() { $(this).remove(); });
 <% else -%>
-  <% if ! comment.enabled? -%>
-    var comment = $('#suj-comment-<%= comment.id -%>');
-    $(".suj-commentable-text", comment).html("<%= t('commentable.censored') -%>");
-    $("#suj-commentable-hide-form", comment).html("<%= escape_javascript(destroy_url(comment, t('commentable.destroy'))) -%>");
-    $("#suj-commentable-hide-form", comment).before('<span id="suj-commentable-unhide-form" class="login_required"><%= escape_javascript unhide_url(comment, t("commentable.unhide")) -%></span>');
-  <% else -%>
-    $(".suj-commentable-text", comment).html("<%= comment.text -%>");
-    $("#suj-commentable-unhide-form", comment).remove();
-    $("#suj-commentable-hide-form", comment).html("<%= escape_javascript(destroy_url(comment, t('commentable.hide'))) -%>");
+  <% if comment.enabled? -%>
+    $("#suj-comment-<%= comment.id -%>-text").html("<%= comment.text -%>");
+  <% else -%>  
+    $("#suj-comment-<%= comment.id -%>-text").html("<%= t('commentable.censored') -%>");
   <% end -%>
+  $("#suj-comment-<%= comment.id -%>-controls").replaceWith("<%= escape_javascript(render(:partial => 'suj/commentable/item_controls', :formats => [:html], :locals => { :comment => comment, :commentable_user => commentable_user })) -%>");
 <% end -%>

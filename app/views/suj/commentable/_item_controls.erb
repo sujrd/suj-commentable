@@ -1,0 +1,30 @@
+<div id='suj-comment-<%= comment.id -%>-controls' class='suj-commentable-controls'>
+ <% if (comment.depth + 1) < comment.commentable.class.max_depth -%>
+   <span class='suj-commentable-reply-show login_required'><%= reply_toggle t("commentable.reply") %></span>
+ <% end -%>
+ <span class="login_required"><%= unlike_url(comment, t("commentable.unlike")) -%></span>
+ <span class="login_required"><%= like_url(comment, t("commentable.like")) -%></span>
+ <!--
+ <% if comment.closed? -%>
+   <span id="suj-commentable-open-form" class="login_required"><%= open_url(comment, t("commentable.open_thread")) -%></span>
+ <% else -%>
+   <span id="suj-commentable-open-form" class="login_required"><%= close_url(comment, t("commentable.close_thread")) -%></span>
+ <% end -%>
+ -->
+ <% if comment.enabled? -%>
+   <% if commentable_user and commentable_user.can_hid_comment?(comment) -%>
+     <span id="suj-comment-<%= comment.id -%>-hide-form" class="login_required"><%= hide_url(comment, t("commentable.hide")) -%></span>
+   <% end %>
+ <% else -%>
+   <% if commentable_user and commentable_user.can_hid_comment?(comment) -%>
+     <span id="suj-comment-<%= comment.id -%>-unhide-form" class="login_required"><%= unhide_url(comment, t("commentable.unhide")) -%></span>
+   <% end -%>
+   <% if commentable_user and commentable_user.can_delete_comment?(comment) -%>
+     <span id="suj-comment-<%= comment.id -%>-hide-form" class="login_required"><%= destroy_url(comment, t("commentable.destroy")) -%></span>
+   <% end -%>
+ <% end -%>
+ <% if (comment.depth + 1) < comment.commentable.class.max_depth -%>
+   <span id='suj-comment-rating-<%= comment.id -%>' class='suj-commentable-rating'><%= t("commentable.score", :score => "<label class='suj-commentable-score'>#{comment.rates}</label>").html_safe -%></label></span>
+ <% end -%>
+</div>
+
