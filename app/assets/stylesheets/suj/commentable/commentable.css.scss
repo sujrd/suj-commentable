@@ -104,5 +104,10 @@
     .suj-commentable-text {
       clear: both;
     }
+    
+    .suj-commentable-censored {
+      color: #909090;
+      font-style: italic;
+    }
   }
 }
