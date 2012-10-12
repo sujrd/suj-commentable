@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
     {:locale => I18n.locale}
   end
 
+  # Override this method to return the user model used to create comments and rate
+  # comments.
+  def commentable_user
+    Author.first
+  end
+
 end

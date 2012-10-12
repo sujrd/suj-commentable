@@ -60,6 +60,7 @@ module Suj
         grav_url << "&default=#{options[:default]}" if options[:default]
         image_tag(grav_url, { :size => "#{size}x#{size}", :alt => "avatar" })
       end
+
     end
   end
 end

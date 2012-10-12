@@ -11,7 +11,19 @@ module Suj
         comments.by_date_asc
       end
     end
-    
+
+    module AuthorInstanceMethods
+      def can_delete_comment?(comment)
+        return true if comment.author and comment.author == self
+        return false
+      end
+
+      def can_hid_comment?(comment)
+        return true if comment.author and comment.author == self
+        return false
+      end
+    end
+
     module ClassMethods
  
       @@max_depth = -1
@@ -56,8 +68,10 @@ module Suj
         #index [[comment_class.to_s.pluralize.downcase, Mongo::ASCENDING]]
         has_many :comments, class_name: "Suj::Commentable::Comment", as: :author
         index [[:comments, Mongo::ASCENDING]]
+
+        include AuthorInstanceMethods
       end
-      
+
       #def acts_as_commentable_comment(options = {})
       #  include Mongoid::Tree
       #  include Mongoid::Rateable
