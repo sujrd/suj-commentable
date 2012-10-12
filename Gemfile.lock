@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    suj-commentable (0.0.1)
+    suj-commentable (0.0.4)
       bson_ext
       kaminari
       mongoid
