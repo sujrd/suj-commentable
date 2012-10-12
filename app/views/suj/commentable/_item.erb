@@ -7,7 +7,7 @@
 <% if comment.enabled? -%>
   <div id='suj-comment-<%= comment.id -%>-text' class='suj-commentable-text'><%= comment.text -%></div>
 <% else -%>
-  <div id='suj-comment-<%= comment.id -%>-text' class='suj-commentable-text'><%= t('commentable.censored') -%></div>
+  <div id='suj-comment-<%= comment.id -%>-text' class='suj-commentable-text suj-commentable-censored'><%= t('commentable.censored') -%></div>
 <% end -%>
 <%= render :partial => 'suj/commentable/item_controls', :formats => [:html], :locals => { :comment => comment, :commentable_user => commentable_user } %>
 <%= render :partial => 'suj/commentable/form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment } %>
