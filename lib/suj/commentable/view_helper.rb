@@ -53,7 +53,7 @@ module Suj
       
       def avatar_tag(email, options = {})
         size = options[:size] || 20
-        grav_url = 'http://www.gravatar.com/avatar.php?'
+        grav_url = '//www.gravatar.com/avatar.php?'
         grav_url << "gravatar_id=#{Digest::MD5.new.update(email.to_s)}"
         grav_url << "&rating=#{options[:rating]}" if options[:rating]
         grav_url << "&size=#{size}"
