@@ -109,10 +109,7 @@ module Suj
 
       def like
         @comment = Suj::Commentable::Comment.find(params[:id])
-        if commentable_user
-          @weight = commentable_user.rate_weight || 1
-          @comment.rate_and_save @weight, commentable_user
-        end
+        @comment.like!(commentable_user)
         respond_to do |format|
           format.html {
             redirect_to :back 
@@ -125,10 +122,7 @@ module Suj
 
       def unlike
         @comment = Comment.find(params[:id])
-        if(commentable_user)
-          @weight = (commentable_user.rate_weight || 1) * -1
-          @comment.rate_and_save @weight, commentable_user
-        end
+        @comment.unlike!(commentable_user)
         respond_to do |format|
           format.html {
             redirect_to :back 
