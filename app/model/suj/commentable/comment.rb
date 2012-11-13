@@ -94,22 +94,22 @@ module Suj
       end
 
       def notify_commentable_before_create
-        commentable.send(:before_create_comment, self) if commentable.respond_to?(:before_create_comment)
+        commentable.send(:before_create_comment, self) if commentable.respond_to?(:before_create_comment, true)
       end
       def notify_commentable_after_create
-        commentable.send(:after_create_comment, self) if commentable.respond_to?(:after_create_comment)
+        commentable.send(:after_create_comment, self) if commentable.respond_to?(:after_create_comment, true)
       end
 
       def notify_commentable_before_destroy
-        commentable.send(:before_destroy_comment, self) if commentable.respond_to?(:before_destroy_comment)
+        commentable.send(:before_destroy_comment, self) if commentable.respond_to?(:before_destroy_comment, true)
       end
 
       def notify_commentable_after_like(user)
-        commentable.send(:after_like_comment, self, user) if commentable.respond_to?(:after_like_comment)
+        commentable.send(:after_like_comment, self, user) if commentable.respond_to?(:after_like_comment, true)
       end
 
       def notify_commentable_after_unlike(user)
-        commentable.send(:after_unlike_comment, self, user) if commentable.respond_to?(:after_unlike_comment)
+        commentable.send(:after_unlike_comment, self, user) if commentable.respond_to?(:after_unlike_comment, true)
       end
     end
   end
