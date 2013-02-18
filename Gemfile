@@ -7,9 +7,9 @@ gemspec
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
-gem "mongo"
+# gem "mongo"
 gem "mongoid"
-gem "bson_ext"
+# gem "bson_ext"
 gem "kaminari"
 gem "mongoid-tree"
 gem "mongoid_rateable"

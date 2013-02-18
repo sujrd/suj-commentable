@@ -1,4 +1,3 @@
-require "mongo"
 require "mongoid/tree"
 require "active_support/time_with_zone"
 module Suj
@@ -55,7 +54,7 @@ module Suj
                             as: :commentable, 
                             dependent: (options[:dependent] || :destroy)
 
-        index({ comments: Mongo::ASCENDING })
+        index({ comments: 1 })
       end
 
       def acts_as_commentable_author(options = {})
@@ -63,7 +62,7 @@ module Suj
         field (options[:avatar_field] || :avatar).to_sym, as: :avatar
         field :rate_weight, default: 1
         has_many :comments, class_name: "Suj::Commentable::Comment", as: :author
-        index({ comments: Mongo::ASCENDING })
+        index({ comments: 1 })
         include AuthorInstanceMethods
       end
 
