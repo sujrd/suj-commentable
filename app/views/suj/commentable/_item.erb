@@ -13,7 +13,7 @@
 <%= render :partial => 'suj/commentable/form', :formats => [:html], :locals => { :commentable => commentable, :parent => comment } %>
 </li>
 <ul id='suj-comment-children-list-<%= comment.id -%>' class='suj-commentable-list'>
-<% comment.children.order(:created_at => :desc).each do |child| -%>
+<% comment.children.desc(:created_at).each do |child| -%>
  <%= render :partial => 'suj/commentable/item', :formats => [:html], :locals => { :comment => child, :parent => comment, :commentable => commentable } %>
 <% end -%>
 </ul>

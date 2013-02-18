@@ -1,15 +1,13 @@
-var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment, :author => @comment.author, :parent => @comment.parent }) -%>")
-
-<% if @comment.parent.blank? -%>
-  <% if commentable.class.comments_order == :desc -%>
-    $('#suj-commentable-<%= commentable.id -%>').prepend(comment.fadeIn(500));
-  <% else -%>
-    $('#suj-commentable-<%= commentable.id -%>').append(comment.fadeIn(500));
-  <%   end  -%>
-<% else -%>
-  $('#suj-comment-children-list-<%= @comment.parent.id -%>').prepend(comment.fadeIn(500));
-<% end -%>
-
-$('.suj-commentable-section form').find("textarea").each(function() {
+var comment = $("<%= escape_javascript render(:partial => 'suj/commentable/item', :formats => [:html], :locals => { :commentable => commentable, :comment => @comment, :author => @comment.author, :parent => @comment.parent }) -%>");
+$(".suj-commentable-section form textarea").each(function() {
   $(this).val('');
 });
+<% if @comment.parent.blank? -%>
+  <% if commentable.class.comments_order == :desc -%>
+    comment.hide().prependTo('#suj-commentable-<%= commentable.id -%>').fadeIn(500, function(){ comment.show()});
+  <% else -%>
+    comment.hide().appendTo('#suj-commentable-<%= commentable.id -%>').fadeIn(500, function(){ comment.show()});
+  <% end  -%>
+<% else -%>
+  comment.hide().prependTo('#suj-comment-children-list-<%= @comment.parent.id -%>').fadeIn(500, function(){ comment.show()});
+<% end -%>
